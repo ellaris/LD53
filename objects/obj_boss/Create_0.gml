@@ -5,14 +5,14 @@
 circle_aoe = {
 	damage: 1,
 	spr: spr_circle_aoe,
-	duration: room_speed*3,
+	duration: round(room_speed*3.5),
 	reset: true,
 }
 
 line_aoe = {
 	damage: 5,
 	spr: spr_line_aoe,
-	duration: room_speed*1,
+	duration: round(room_speed*0.6),
 	reset: false,
 }
 
@@ -20,7 +20,7 @@ line_aoe = {
 melee_aoe = {
 	damage: 20,
 	spr: spr_melee_aoe,
-	duration: room_speed*1,
+	duration: round(room_speed*0.3),
 	reset: false,
 }
 
@@ -31,7 +31,7 @@ enraged = false; // 2nd stage
 
 fatigue = 0;
 max_fatigue = 100;
-fatigue_step_loss = max_fatigue/room_speed/5; // 4s
+fatigue_step_loss = max_fatigue/room_speed/6; // 4s
 fatigue_stunned = false;
 
 take_damage = function(_damage){

@@ -20,13 +20,16 @@ draw_rectangle(_xx+1,_yy+1,_xx+_bar_width*_hp_ratio-1,_yy+_bar_height-1,false);
 
 
 // draw text hp and bar number
-draw_set_color(c_white);
-draw_set_halign(fa_center);
-draw_set_valign(fa_middle);
-draw_text(_xx+_bar_width/2,_yy+_bar_height/2,string(hp)+"/"+string(max_hp))
-if(hp_bars > 1)
+if(hp_bars > 0)
 {
-	draw_text(_xx+_bar_width-_offset,_yy+_bar_height/2,"X"+string(hp_bars))	
+	draw_set_color(c_white);
+	draw_set_halign(fa_center);
+	draw_set_valign(fa_middle);
+	draw_text(_xx+_bar_width/2,_yy+_bar_height/2,string(hp)+"/"+string(max_hp))
+	if(hp_bars > 1)
+	{
+		draw_text(_xx+_bar_width-_offset,_yy+_bar_height/2,"X"+string(hp_bars))	
+	}
 }
 
 // draw fatigue

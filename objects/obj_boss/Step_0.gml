@@ -8,7 +8,7 @@ if(_left_click)
 	if(ability_cd == 0 and not fatigue_stunned)
 	{
 		ability_cd = ability_max_cd;
-		fatigue += 60;
+		fatigue += 65;
 		if(fatigue >= max_fatigue)
 		{
 			fatigue = max_fatigue;
@@ -30,8 +30,8 @@ if(_left_click)
 		switch(ability_current_index)
 		{
 			case 1:
-				_attack.image_xscale = 4;
-				_attack.image_yscale = 4;
+				//_attack.image_xscale = 4;
+				//_attack.image_yscale = 4;
 				var _dir = point_direction(x,y,mouse_x,mouse_y);
 				_attack.image_angle = _dir;
 				_attack.x = x;

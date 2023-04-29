@@ -11,6 +11,22 @@ if(_char and not hit)
 if(reset and duration % room_speed == 0)
 	hit = false;
 	
+switch(spr)
+{
+	case spr_circle_aoe:
+		image_angle += 7*dir;
+	break;
+	case spr_line_aoe:
+
+		x += lengthdir_x(1,image_angle+90)*sin(duration)
+		y += lengthdir_y(1,image_angle+90)*sin(duration)
+	break;
+	case spr_melee_aoe:
+	
+	break;
+
+}
+	
 if(duration <= 0)
 	instance_destroy();
 duration -= 1;
