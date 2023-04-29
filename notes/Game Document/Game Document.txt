@@ -1,1 +1,44 @@
 Theme: Delivery
+
+Boss rush, but you're the boss
+
+Select character (1 / 3) (Ezekiel, Norman, Howard) (move speed, cooldowns, primary attack range, skin)
+
+CHARACTER:
+Character abilities = primary attack 1s, tripple attack 5s 1/10%, dodge 3s
+dodge = roll animation + speedx3
+
+( x3attack - quips "letter delivery", "christams chards", "birthiday cards", "death chain", "hate mail")
+
+( character quips for: entering stage, getting hit, "close calls", boss 2nd stage, victory, defeat, mistake moves)
+
+(mistake move quips: "Mom! I can't right now, I'm playing!", " *brbr* *click* hello?, I can't talk right now"
+	"Kittens! Get off my keyboard!", "")
+	
+Everytime the boss loses it's health bar, the character does a "mistake", dash/roll towards boss
+
+Character keeps to the middle with a little offset away from the boss ( depends on the current hp bar state, gets
+	closer the lower the health bar -+20%) and walks from side to side
+	
+( pickups for the character to increase damage, predictable movement towards the power-up)
+
+BOSS:	
+Boss has several health bars x10
+
+Boss has a move pattern: Circular AOE, Line AOE, Melee AOE
+2s cd between each attack, attacks build up "fatigue" which degrades over time, reaching max puts the boss
+	in a stun state where he can't act and takes double damage as it drains over 5s.
+	
+attacks have a 2s "red warning zone" before doing damage/animation
+
+(the boss has 4 places between which me moves randomly)
+
+2nd stage after reaching half boss health (bars)
+	half the animation/ indication time, double damage
+	(another ability added to the pattern)
+	
+(3 bosses, each stronger then the first)
+	
+BEATING THE GAME:
+max fatigue to speed up 1st stage, get to health bar end to bait a mistake for a melee attack
+2nd stage bait dodge with first ability into second ability radius
