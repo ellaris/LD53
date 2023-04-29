@@ -42,3 +42,21 @@ attacks have a 2s "red warning zone" before doing damage/animation
 BEATING THE GAME:
 max fatigue to speed up 1st stage, get to health bar end to bait a mistake for a melee attack
 2nd stage bait dodge with first ability into second ability radius
+
+
+Advancement - extra things
+3 characters
+izzy - slower, longer cooldowns
+basic attack melee?
+block instead of dodge, block damage for 1s?
+
+howard - faster, shorter cooldowns
+basic attack - ?
+dodge - can stack up to 2 times
+
+bosses
+
+boss 2
+Square AOE - letters fall from the sky over the square area
+triangle AOE - 
+melee - double box attack (1 box spawns another on the other side of the boss, 10 steps after)

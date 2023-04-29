@@ -3,7 +3,7 @@
 var _char = instance_place(x,y,obj_character);
 if(_char and not hit)
 {
-	_char.hp -= damage;
+	_char.take_damage(damage);
 	hit = true;
 }
 

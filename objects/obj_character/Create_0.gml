@@ -7,8 +7,13 @@ state_normal = function(){
 	
 	//var _dir_to_center = point_direction(x,y,room_width/2,room_height/2);
 	
+	if(initial_quip_cd == 1)
+	{
+		make_quip(quips.start);	
+	}
+	
 	// update lost hp and speak
-	if(hp < last_hp-10)
+	if(hp < last_hp-10 and hp > 0)
 	{
 		last_hp = hp;
 		if(hp_quip_cd == 0)
@@ -250,7 +255,7 @@ quip_database = [
 max_hp = 100;
 hp = max_hp;
 last_hp = hp;
-hp_quip_max_cd = room_speed*2;
+hp_quip_max_cd = room_speed*4;
 hp_quip_cd = 0;
 
 move_speed = 4;
@@ -264,7 +269,6 @@ attack_max_cd = room_speed; // 1s
 attack_cd = 0; // ready
 attack_move_speed = 6;
 
-ability_damage = 10
 ability_max_cd = room_speed*5; // 5s
 ability_cd = 0;
 ability_shots = 3;
@@ -279,6 +283,7 @@ last_boss_bars = obj_boss.hp_bars;
 boss_stunned = false;
 
 last_quip = false;
+initial_quip_cd = room_speed*2;
 
 decrease_cd = function(){
 	if(dodge_cd > 0)
@@ -292,6 +297,9 @@ decrease_cd = function(){
 		
 	if(hp_quip_cd > 0)
 		hp_quip_cd -= 1;
+		
+	if(initial_quip_cd > 0)
+		initial_quip_cd -= 1;
 }
 
 enum states {
@@ -305,10 +313,14 @@ enum states {
 
 state_list = [state_normal,state_animation,state_attack,state_dodge,state_move,state_tripple_attack];
 // debug
-state_desc = ["Normal","Anim","Attack","Dodge","Move","TrippleAttack"];
+//state_desc = ["Normal","Anim","Attack","Dodge","Move","TrippleAttack"];
 
 get_state = function(_state_index){
 	return(state_list[_state_index])
+}
+
+take_damage = function(_damage){
+	hp -= _damage;	
 }
 
 state = get_state(states.normal);

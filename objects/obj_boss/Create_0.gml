@@ -30,6 +30,7 @@ hp_bars = 10;
 enraged = false; // 2nd stage
 
 fatigue = 0;
+fatigue_increase = 65;
 max_fatigue = 100;
 fatigue_step_loss = max_fatigue/room_speed/6; // 4s
 fatigue_stunned = false;

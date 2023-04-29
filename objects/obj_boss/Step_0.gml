@@ -8,7 +8,7 @@ if(_left_click)
 	if(ability_cd == 0 and not fatigue_stunned)
 	{
 		ability_cd = ability_max_cd;
-		fatigue += 65;
+		fatigue += fatigue_increase;
 		if(fatigue >= max_fatigue)
 		{
 			fatigue = max_fatigue;
