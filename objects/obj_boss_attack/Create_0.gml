@@ -16,6 +16,7 @@ switch(spr)
 	break;
 	case spr_line_aoe:
 		image_speed = 1;
+		duration = floor(room_speed/(image_number)*(image_number-1));
 		image_yscale = choose(1,-1);
 	break;
 	case spr_melee_aoe:

@@ -3,7 +3,7 @@
 
 // attacks
 circle_aoe = {
-	damage: 1,
+	damage: 2,
 	spr: spr_circle_aoe,
 	duration: round(room_speed*3.5),
 	reset: true,

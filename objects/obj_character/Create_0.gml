@@ -18,6 +18,14 @@ state_normal = function(){
 		}
 	}
 	
+	if(obj_boss.fatigue_stunned and not boss_stunned)
+	{
+		//boss_enraged = true;
+		make_quip(quips.stunned)
+	}
+	boss_stunned = obj_boss.fatigue_stunned;
+	
+	
 	// end of game quips
 	if(hp <= 0 and not last_quip)
 	{
@@ -89,6 +97,7 @@ state_normal = function(){
 			animation_end_state = get_state(states.attack);
 			animation_time = 2;
 			ability_cd = ability_max_cd;
+			attack_cd = attack_max_cd; // so it doesn't shoot at the end of the tripple shot
 		}
 		state = get_state(states.animation);
 		animation_end_state = get_state(states.attack);
@@ -139,16 +148,20 @@ state_attack = function(){
 	_attack.direction = _dir;
 	_attack.image_angle = _dir;
 	
+	
 	state = get_state(states.animation);
+	if(ability_current_shots > 0)
+	{
+		_attack.rotate = choose(1,-1);
+		_attack.speed *= 1.5;
+		ability_current_shots -= 1;
+		animation_end_state = get_state(states.attack);	
+	}
 	if(ability_current_shots == 0)
 	{
 		animation_end_state = get_state(states.normal);
 	}
-	else
-	{
-		ability_current_shots -= 1;
-		animation_end_state = get_state(states.attack);	
-	}
+	
 	animation_time = 2;
 }
 
@@ -183,14 +196,11 @@ state_tripple_attack = function(){
 
 make_quip = function(_type){
 	var _quip = "quip ";
-	switch(_type)
-	{
-		case quips.mistake:
-		
-		break;
-	}
-	
-	show_debug_message(_quip+string(_type));
+	var _quip_array = quip_database[_type];
+	_quip = _quip_array[irandom(array_length(_quip_array)-1)];
+	var _quip_box = instance_create_layer(x,bbox_top,"Quips",obj_quip);
+	_quip_box.description = + _quip_box.description +_quip;
+	show_debug_message(string(_type)+_quip);
 }
 
 enum quips {
@@ -201,7 +211,40 @@ enum quips {
 	start,
 	victory, // player
 	defeat, // player
+	stunned, // boss
 }
+
+quip_database = [
+// mistake
+["Mom! I can't right now, I'm playing!", "*brr brr* *click* hello?, I can't talk right now ...",
+	"Kittens! Get off my keyboard!", "Noo! Lagggg!", "Need new mouse batteries", "Damn, I miss clicked",
+	"Well, there goes this run", "Uf, I hope I can come back from this"],
+
+// ability
+["Letter delivery", "Christams cards", "Birthiday cards", "Death chain", "Hate mail", "Scam mail"],
+
+// hit
+["Aw, that hurt.", "How did that hit?", "These hitboxes are crap!", "I doged it, I doged it!",
+	"No no no", "Ah, get away"],
+
+// dodge
+["That was close", "Not this time", "Can't touch this", "Easy", "Not even close", "Smoth",
+	"I've got this"],
+
+// start
+["Tutorial boss, let's gooo", "I'll make it fast", "Let's box it UP", "Delivery time", 
+	"I only got 5 minutes, so come on", "Let's see what it's all about"],
+
+// victory
+["This game sucks", "This boss is overpowered", "*scof* Yea, right", "How am I supposed to beat this?!"],
+
+// defeat
+["Ha ha, eat paper!", "That was easy", "Easy enemy!", "I want a challenge"],
+
+// enraged
+["Double damage, nice", "It's time to go", "All out now", "Eat this", "Boss's stunned, nice",
+	"Ha ha, he got tired", "Unleash hell!"],
+]
 
 
 max_hp = 100;
@@ -224,7 +267,7 @@ attack_move_speed = 6;
 ability_damage = 10
 ability_max_cd = room_speed*5; // 5s
 ability_cd = 0;
-ability_shots = 2;
+ability_shots = 3;
 ability_current_shots = 0;
 ability_shot_cd = 5;
 
@@ -233,6 +276,7 @@ target_spread = 120;
 
 make_mistake = false;
 last_boss_bars = obj_boss.hp_bars;
+boss_stunned = false;
 
 last_quip = false;
 

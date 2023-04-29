@@ -14,12 +14,15 @@ if(reset and duration % room_speed == 0)
 switch(spr)
 {
 	case spr_circle_aoe:
-		image_angle += 7*dir;
+		image_angle += 15*dir;
+		image_xscale *= 1.0005;
+		image_yscale *= 1.0005;
+		
 	break;
 	case spr_line_aoe:
-
-		x += lengthdir_x(1,image_angle+90)*sin(duration)
-		y += lengthdir_y(1,image_angle+90)*sin(duration)
+		var _strength = 4;
+		x += lengthdir_x(_strength,image_angle+90)*sin(duration div 3)
+		y += lengthdir_y(_strength,image_angle+90)*sin(duration div 3)
 	break;
 	case spr_melee_aoe:
 	
