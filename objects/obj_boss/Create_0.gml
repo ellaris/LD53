@@ -1,2 +1,54 @@
 /// @description Wstaw opis w tym miejscu
 // W tym edytorze możesz zapisać swój kod
+
+// attacks
+circle_aoe = {
+	damage: 1,
+	spr: spr_circle_aoe,
+	duration: room_speed*3,
+	reset: true,
+}
+
+line_aoe = {
+	damage: 5,
+	spr: spr_line_aoe,
+	duration: room_speed*1,
+	reset: false,
+}
+
+
+melee_aoe = {
+	damage: 20,
+	spr: spr_melee_aoe,
+	duration: room_speed*1,
+	reset: false,
+}
+
+max_hp = 200;
+hp = max_hp;
+hp_bars = 10;
+enraged = false; // 2nd stage
+
+fatigue = 0;
+max_fatigue = 100;
+fatigue_step_loss = max_fatigue/room_speed/5; // 4s
+fatigue_stunned = false;
+
+take_damage = function(_damage){
+	if(fatigue_stunned)
+		_damage = _damage*2;
+	hp -= _damage;
+	if(hp <= 0)
+	{
+		hp_bars -= 1;
+		hp = max_hp - abs(hp);
+	}
+	if(hp_bars == 5)
+		enraged = true;
+}
+
+ability_max_cd = 2*room_speed; // 2s
+ability_cd = 0
+ability_warning_time = 2*room_speed; // 2s
+ability_list = [circle_aoe, line_aoe, melee_aoe]
+ability_current_index = 0;
