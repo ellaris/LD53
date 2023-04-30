@@ -6,10 +6,10 @@ draw_self();
 // draw_hp bar
 draw_set_color(c_black);
 var _hp_ratio = hp/max_hp;
-var _bar_width = sprite_width;
+var _bar_width = abs(sprite_width);
 var _bar_height = 8;
 var _xx = x-_bar_width/2;
-var _yy = y-sprite_height/2-_bar_height;
+var _yy = y-abs(sprite_width)/2-_bar_height;
 
 draw_rectangle(_xx,_yy,_xx+_bar_width,_yy+_bar_height,true);
 draw_set_color(c_green);

@@ -21,7 +21,7 @@ switch(spr)
 		image_yscale = choose(1,-1);
 	break;
 	case spr_melee_aoe:
-	
+		image_speed = 1;
 		image_yscale = choose(1,-1);
 	break;
 

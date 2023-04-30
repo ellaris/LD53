@@ -19,7 +19,10 @@ state_normal = function(){
 	
 	speed = 0;
 	if(x < 0 or x > room_width or y < 0 or y > room_height)
+	{
 		speed = move_speed;
+		direction = point_direction(x,y,room_width/2,room_height/2);
+	}
 		
 	if(last_quip)
 	{
@@ -36,7 +39,7 @@ state_normal = function(){
 	var _boss_hp_ratio = obj_boss.hp/obj_boss.max_hp;
 	var _dir = point_direction(obj_boss.x,obj_boss.y,room_width/2,room_height/2);
 	_dir += target_direction;
-	var _offset = 64;
+	var _offset = 128;
 	var _target_x = room_width/2
 	var _target_y = room_height/2;
 	var _length_offset = _offset*(_boss_hp_ratio*2-1);
@@ -44,8 +47,8 @@ state_normal = function(){
 	_target_y += lengthdir_y(_length_offset,_dir);
 	
 	// keep to the middle and avoid outside of the map
-	var _dist = point_distance(x,y,_target_x,_target_y)/point_distance(_target_x,_target_y,0,0);
-	_dist = clamp(_dist,0.15,1.8);
+	var _dist = point_distance(x,y,_target_x,_target_y)/point_distance(0,room_height/2,0,0);
+	_dist = clamp(_dist,0.1,1);
 	var _dir = point_direction(x,y,_target_x,_target_y);
 	var _xx = lengthdir_x(_dist,_dir),_yy = lengthdir_y(_dist,_dir);
 	var _vec = new Vector2(_xx,_yy);
@@ -64,8 +67,8 @@ state_normal = function(){
 	{
 		var _dist = place_meeting(x,y,obj_character)
 		if(_dist == 0)
-			_dist = 1.5-distance_to_object(other)/(other.sprite_width/2);
-		_dist = clamp(_dist,0.1,0.9);
+			_dist = 0.9-point_distance(x,y,other.x,other.y)/(other.sprite_width);
+		_dist = clamp(_dist,0.3,1);
 		var _dir = point_direction(x,y,other.x,other.y);
 		if(spr = spr_line_aoe)
 		{
@@ -77,6 +80,9 @@ state_normal = function(){
 		var _vec_a = new other.Vector2(_xx,_yy);
 		_vec.Add(_vec_a);	
 	}
+	
+	var _stay_put = (abs(_vec.x)+abs(_vec.y)) <= 0.15
+	show_debug_message((abs(_vec.x)+abs(_vec.y)))
 	direction = point_direction(x,y,x+_vec.x,y+_vec.y);
 	//speed = move_speed/2;
 	
@@ -113,11 +119,13 @@ state_normal = function(){
 	{
 		last_quip = true;
 		make_quip(quips.victory)
+		return(0)
 	}
 	if(obj_boss.hp_bars == 0 and not last_quip)
 	{
 		last_quip = true;
 		make_quip(quips.defeat)
+		return(0)
 	}
 	
 	
@@ -140,8 +148,8 @@ state_normal = function(){
 	
 	// move away from attacks
 	//var _danger = instance_place(x,y,obj_boss_attacks);
-	var _danger = collision_rectangle(bbox_left-sprite_width/2,bbox_top-sprite_height/2,
-		bbox_right+sprite_width/2,bbox_bottom+sprite_height/2,obj_boss_attacks,true,true)
+	var _danger = collision_rectangle(x-abs(sprite_width),bbox_top-sprite_height/2,
+		x+abs(sprite_width),bbox_bottom+sprite_height/2,obj_boss_attacks,true,true)
 	if(_danger)
 	{
 		//direction = point_direction(_danger.x,_danger.y,x,y);
@@ -154,6 +162,7 @@ state_normal = function(){
 
 		if(dodge_cd == 0)
 		{
+			direction = point_direction
 			state = get_state(states.dodge);
 			if(irandom(5) == 0)
 				make_quip(quips.dodge);
@@ -197,7 +206,7 @@ state_normal = function(){
 		var _xx = x+lengthdir_x(move_speed,direction);
 		var _yy = y+lengthdir_y(move_speed,direction);
 		var _danger = instance_place(_xx,_yy,obj_boss_attacks);
-		if(not _danger)
+		if(not _danger and not _stay_put)
 		{
 			//direction = _dir;
 			state = get_state(states.move);
@@ -212,7 +221,7 @@ state_normal = function(){
 state_attack = function(){
 	var _xx,_yy; // offset to attack from the front of the character rather than middle
 	var _dir = point_direction(x,y,obj_boss.x,obj_boss.y);
-	_xx = x + lengthdir_x(sprite_width/2,_dir);
+	_xx = x + lengthdir_x(abs(sprite_width)/2,_dir);
 	_yy = y + lengthdir_y(sprite_height/2,_dir);
 	
 	var _attack = instance_create_layer(_xx,_yy,"Attacks",obj_letter);
@@ -275,7 +284,7 @@ make_quip = function(_type){
 	_quip = _quip_array[irandom(array_length(_quip_array)-1)];
 	var _quip_box = instance_create_layer(x,bbox_top,"Quips",obj_quip);
 	_quip_box.description = + _quip_box.description +_quip;
-	show_debug_message(string(_type)+_quip);
+	//show_debug_message(string(_type)+_quip);
 }
 
 enum quips {
@@ -346,7 +355,7 @@ ability_current_shots = 0;
 ability_shot_cd = 5;
 
 target_direction = 0;
-target_spread = 120;
+target_spread = 160;
 
 make_mistake = false;
 last_boss_bars = obj_boss.hp_bars;
