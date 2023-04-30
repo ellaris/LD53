@@ -13,6 +13,12 @@ if(_left)
 if(_right)
 	selection += 1;
 	
+if(_left or _right)
+{
+	var _sound = choose(snd_select_1);
+	audio_play_sound(_sound,3,false);	
+}
+	
 if(selection < 0)
 	selection = array_length(character_list)-1;
 if(selection >= array_length(character_list))

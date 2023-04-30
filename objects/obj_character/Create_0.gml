@@ -48,7 +48,7 @@ state_normal = function(){
 	
 	// keep to the middle and avoid outside of the map
 	var _dist = point_distance(x,y,_target_x,_target_y)/point_distance(0,room_height/2,0,0);
-	_dist = clamp(_dist,0.1,1);
+	_dist = clamp(_dist,0.15,1.8);
 	var _dir = point_direction(x,y,_target_x,_target_y);
 	var _xx = lengthdir_x(_dist,_dir),_yy = lengthdir_y(_dist,_dir);
 	var _vec = new Vector2(_xx,_yy);
@@ -67,8 +67,8 @@ state_normal = function(){
 	{
 		var _dist = place_meeting(x,y,obj_character)
 		if(_dist == 0)
-			_dist = 0.9-point_distance(x,y,other.x,other.y)/(other.sprite_width);
-		_dist = clamp(_dist,0.3,1);
+			_dist = 1.5-distance_to_object(other)/(other.sprite_width/2);
+		_dist = clamp(_dist,0.1,0.9);
 		var _dir = point_direction(x,y,other.x,other.y);
 		if(spr = spr_line_aoe)
 		{
@@ -119,12 +119,16 @@ state_normal = function(){
 	{
 		last_quip = true;
 		make_quip(quips.victory)
+		var _sound = choose(snd_game_end_1);
+		audio_play_sound(_sound,3,false);
 		return(0)
 	}
 	if(obj_boss.hp_bars == 0 and not last_quip)
 	{
 		last_quip = true;
 		make_quip(quips.defeat)
+		var _sound = choose(snd_game_end_1);
+		audio_play_sound(_sound,3,false);
 		return(0)
 	}
 	
@@ -162,7 +166,6 @@ state_normal = function(){
 
 		if(dodge_cd == 0)
 		{
-			direction = point_direction
 			state = get_state(states.dodge);
 			if(irandom(5) == 0)
 				make_quip(quips.dodge);
@@ -245,6 +248,9 @@ state_attack = function(){
 		animation_end_state = get_state(states.normal);
 	}
 	
+	var _sound = choose(snd_paper_1);
+	audio_play_sound(_sound,3,false);
+	
 	animation_time = 2;
 }
 
@@ -267,6 +273,9 @@ state_dodge = function(){
 	animation_time = dodge_time
 	state = get_state(states.animation);
 	animation_end_state = get_state(states.normal);
+	
+	var _sound = choose(snd_dodge_1);
+	audio_play_sound(_sound,3,false);
 }
 
 state_move = function(){
@@ -403,6 +412,9 @@ get_state = function(_state_index){
 take_damage = function(_damage){
 	hp -= _damage;	
 	sprite_index = spr_norman_hit;
+	
+	var _sound = choose(snd_character_hit_1,snd_character_hit_2);
+	audio_play_sound(_sound,3,false);
 }
 
 state = get_state(states.normal);

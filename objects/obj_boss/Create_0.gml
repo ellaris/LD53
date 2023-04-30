@@ -47,6 +47,9 @@ take_damage = function(_damage){
 	}
 	if(hp_bars == 5)
 		enraged = true;
+		
+	var _sound = choose(snd_boss_hit_1,snd_boss_hit_2,snd_boss_hit_3);
+	audio_play_sound(_sound,3,false);
 }
 
 ability_max_cd = 2*room_speed; // 2s

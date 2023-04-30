@@ -37,7 +37,11 @@ for(var i = 0; i < array_length(character_list); i++)
 			if (selection == i)
 				room_goto_next()
 			else
+			{
 				selection = i;
+				var _sound = choose(snd_select_1);
+				audio_play_sound(_sound,3,false);
+			}
 
 
 }

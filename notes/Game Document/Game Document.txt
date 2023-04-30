@@ -60,3 +60,28 @@ boss 2
 Square AOE - letters fall from the sky over the square area
 triangle AOE - 
 melee - double box attack (1 box spawns another on the other side of the boss, 10 steps after)
+
+
+Sounds
+character attack -
+character dodge -
+character hit
+character speak -
+
+boss hit -
+boss attacks:
+	circle -
+	line -
+	melee -
+
+character_select -
+
+boss animations
+idle -
+hit 1
+stunned 2
+attack 1
+enraged 1 seperate added on top
+
+
+Particles

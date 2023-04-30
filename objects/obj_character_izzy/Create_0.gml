@@ -39,7 +39,7 @@ state_normal = function(){
 	//	+" "+string(abs(sprite_width))+" "+string(obj_boss.sprite_width)+" "+string(obj_boss.x))
 	
 	//keep to the middle and avoid outside of the map
-	var _dist = point_distance(x,y,_target_x,_target_y)/point_distance(0,0,room_width/2,room_height/2);
+	var _dist = point_distance(x,y,_target_x,_target_y)/point_distance(0,room_height/2,0,0);
 	
 	_dist = clamp(_dist,0.15,1.8);
 	var _dir = point_direction(x,y,_target_x,_target_y);
@@ -104,11 +104,15 @@ state_normal = function(){
 	{
 		last_quip = true;
 		make_quip(quips.victory)
+		var _sound = choose(snd_game_end_1);
+		audio_play_sound(_sound,3,false);
 	}
 	if(obj_boss.hp_bars == 0 and not last_quip)
 	{
 		last_quip = true;
 		make_quip(quips.defeat)
+		var _sound = choose(snd_game_end_1);
+		audio_play_sound(_sound,3,false);
 	}
 	if(last_quip)
 		return(0);
@@ -244,6 +248,9 @@ state_attack = function(){
 		_yy += lengthdir_y(abs(sprite_width)/2,_dir+_offset_dir);
 	}
 	
+	var _sound = choose(snd_box_1,snd_box_2);
+	audio_play_sound(_sound,3,false);
+	
 	var _attack = instance_create_layer(_xx,_yy,"Instances",obj_box);
 	
 	_attack.damage = attack_damage;
@@ -290,6 +297,7 @@ state_dodge = function(){
 	avoid_damage = true;
 	state = get_state(states.animation);
 	animation_end_state = get_state(states.normal);
+	
 }
 
 quip_database = [
@@ -326,7 +334,15 @@ take_damage = function(_damage){
 	{
 		hp -= _damage;
 		sprite_index = spr_izzy_hit;
-	}	
+		
+		var _sound = choose(snd_character_hit_1,snd_character_hit_2);
+		audio_play_sound(_sound,3,false);
+	}
+	else
+	{
+		var _sound = choose(snd_print_1);
+		audio_play_sound(_sound,3,false);	
+	}
 	
 }
 
