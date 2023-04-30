@@ -1,6 +1,8 @@
 /// @description Wstaw opis w tym miejscu
 // W tym edytorze możesz zapisać swój kod
 
+draw_sprite(spr_boss_enraged,0,x,y+enrage_draw_offset);
+
 draw_self();
 
 // hp bar

@@ -4,10 +4,17 @@
 var _attack_pressed = mouse_check_button_pressed(mb_left) or keyboard_check_pressed(vk_space)
 	or keyboard_check_pressed(vk_enter);
 
+if(fatigue_stunned)
+	sprite_index = spr_boss_stunned;
+else if( not (last_hp > hp+5) and (ability_cd < ability_max_cd -15))
+	sprite_index = spr_boss_idle
+
 if(_attack_pressed)
 {
 	if(ability_cd == 0 and not fatigue_stunned)
 	{
+		
+		sprite_index = spr_boss_attack
 		ability_cd = ability_max_cd;
 		fatigue += fatigue_increase;
 		if(fatigue >= max_fatigue)
@@ -72,4 +79,7 @@ else
 if(last_hp < hp)
 	last_hp = hp;
 else
-	last_hp = lerp(last_hp,hp,0.025);
+	last_hp = lerp(last_hp,hp,0.035);
+	
+if(enraged and enrage_draw_offset > 0)
+	enrage_draw_offset -= 0.2;

@@ -30,6 +30,8 @@ last_hp = hp;
 hp_bars = 10;
 enraged = false; // 2nd stage
 
+enrage_draw_offset = 40;
+
 fatigue = 0;
 fatigue_increase = 65;
 max_fatigue = 100;
@@ -50,6 +52,8 @@ take_damage = function(_damage){
 		
 	var _sound = choose(snd_boss_hit_1,snd_boss_hit_2,snd_boss_hit_3);
 	audio_play_sound(_sound,3,false);
+	
+	sprite_index = spr_boss_hit;
 }
 
 ability_max_cd = 2*room_speed; // 2s

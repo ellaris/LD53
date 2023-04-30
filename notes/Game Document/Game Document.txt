@@ -78,10 +78,31 @@ character_select -
 
 boss animations
 idle -
-hit 1
-stunned 2
+hit 1 -
+stunned 2 -
 attack 1
 enraged 1 seperate added on top
 
 
 Particles
+small several blue move left
+	character hit
+	
+small several white
+	character letter attack
+	boss letter attack
+	letter destroy
+	select norman?
+	
+small several brown
+	character box attack
+	boss box attack
+	box destroy
+	select izzy?
+	
+small several red
+	boss hit
+	
+smoke
+	boss melee attack
+	boss box attack
