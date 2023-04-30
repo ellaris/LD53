@@ -14,7 +14,22 @@
     {"resourceType":"GMRInstanceLayer","resourceVersion":"1.0","name":"Instances","depth":0,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[
         {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_2DFFC0DB","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"objectId":{"name":"obj_control","path":"objects/obj_control/obj_control.yy",},"properties":[],"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":96.0,"y":352.0,},
       ],"layers":[],"properties":[],"userdefinedDepth":false,"visible":true,},
-    {"resourceType":"GMRBackgroundLayer","resourceVersion":"1.0","name":"Background","animationFPS":15.0,"animationSpeedType":0,"colour":4278190080,"depth":100,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"hspeed":0.0,"htiled":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"properties":[],"spriteId":null,"stretch":false,"userdefinedAnimFPS":false,"userdefinedDepth":false,"visible":true,"vspeed":0.0,"vtiled":false,"x":0,"y":0,},
+    {"resourceType":"GMRBackgroundLayer","resourceVersion":"1.0","name":"Background","animationFPS":15.0,"animationSpeedType":0,"colour":4281774632,"depth":100,"effectEnabled":true,"effectType":"_filter_underwater","gridX":32,"gridY":32,"hierarchyFrozen":false,"hspeed":0.0,"htiled":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"properties":[
+        {"name":"g_Distort1Speed","type":0,"value":"0.01",},
+        {"name":"g_Distort2Speed","type":0,"value":"0.025",},
+        {"name":"g_Distort1Scale","type":0,"value":"20",},
+        {"name":"g_Distort1Scale","type":0,"value":"2",},
+        {"name":"g_Distort2Scale","type":0,"value":"100",},
+        {"name":"g_Distort2Scale","type":0,"value":"10",},
+        {"name":"g_Distort1Amount","type":0,"value":"3",},
+        {"name":"g_Distort2Amount","type":0,"value":"6",},
+        {"name":"g_ChromaSpreadAmount","type":0,"value":"1",},
+        {"name":"g_CamOffsetScale","type":0,"value":"1",},
+        {"name":"g_GlintCol","type":1,"value":"#FF191919",},
+        {"name":"g_TintCol","type":1,"value":"#FFFFCC7F",},
+        {"name":"g_AddCol","type":1,"value":"#FF331900",},
+        {"name":"g_DistortTexture","type":2,"value":"_filter_underwater_noise_sprite",},
+      ],"spriteId":null,"stretch":false,"userdefinedAnimFPS":false,"userdefinedDepth":false,"visible":true,"vspeed":0.0,"vtiled":false,"x":0,"y":0,},
   ],
   "parent": {
     "name": "Rooms",

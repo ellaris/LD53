@@ -30,8 +30,8 @@
   "properties": [],
   "solid": false,
   "spriteId": {
-    "name": "spr_character",
-    "path": "sprites/spr_character/spr_character.yy",
+    "name": "spr_norman_idle",
+    "path": "sprites/spr_norman_idle/spr_norman_idle.yy",
   },
   "spriteMaskId": null,
   "visible": true,

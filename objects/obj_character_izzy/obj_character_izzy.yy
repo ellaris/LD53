@@ -32,8 +32,8 @@
   "properties": [],
   "solid": false,
   "spriteId": {
-    "name": "spr_character",
-    "path": "sprites/spr_character/spr_character.yy",
+    "name": "spr_izzy_idle",
+    "path": "sprites/spr_izzy_idle/spr_izzy_idle.yy",
   },
   "spriteMaskId": null,
   "visible": true,

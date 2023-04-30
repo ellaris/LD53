@@ -1,9 +1,86 @@
 /// @description Wstaw opis w tym miejscu
 // W tym edytorze możesz zapisać swój kod
 
+Vector2 = function(_x, _y) constructor
+{
+	x = _x;
+	y = _y;
+	
+	static Add = function(_vec2)
+	{
+		x += _vec2.x;
+		y += _vec2.y;
+	}
+}
+
 state_normal = function(){
 	
+	sprite_index = spr_norman_idle;
+	
 	speed = 0;
+	if(x < 0 or x > room_width or y < 0 or y > room_height)
+		speed = move_speed;
+		
+	if(last_quip)
+	{
+		direction = 180;
+		speed = move_speed;
+		if(x < 0)
+			room_goto_previous();
+			
+		return(0);
+	}
+	
+	// movement
+	
+	var _boss_hp_ratio = obj_boss.hp/obj_boss.max_hp;
+	var _dir = point_direction(obj_boss.x,obj_boss.y,room_width/2,room_height/2);
+	_dir += target_direction;
+	var _offset = 64;
+	var _target_x = room_width/2
+	var _target_y = room_height/2;
+	var _length_offset = _offset*(_boss_hp_ratio*2-1);
+	_target_x += lengthdir_x(_length_offset,_dir);
+	_target_y += lengthdir_y(_length_offset,_dir);
+	
+	// keep to the middle and avoid outside of the map
+	var _dist = point_distance(x,y,_target_x,_target_y)/point_distance(_target_x,_target_y,0,0);
+	_dist = clamp(_dist,0.15,1.8);
+	var _dir = point_direction(x,y,_target_x,_target_y);
+	var _xx = lengthdir_x(_dist,_dir),_yy = lengthdir_y(_dist,_dir);
+	var _vec = new Vector2(_xx,_yy);
+	
+	var _dist = 1-point_distance(x,y,obj_boss.x,obj_boss.y)/
+		point_distance(x,y,_target_x,_target_x);
+	
+	//// move away if too close to the boss
+	//_dist = clamp(_dist,0.0,0.4);
+	//var _dir = point_direction(obj_boss.x,obj_boss.y,_target_x,_target_y);
+	//var _xx = lengthdir_x(_dist,_dir),_yy = lengthdir_y(_dist,_dir);
+	//var _vec_boss = new Vector2(_xx,_yy);
+	//_vec.Add(_vec_boss)
+	
+	with(obj_boss_attacks)
+	{
+		var _dist = place_meeting(x,y,obj_character)
+		if(_dist == 0)
+			_dist = 1.5-distance_to_object(other)/(other.sprite_width/2);
+		_dist = clamp(_dist,0.1,0.9);
+		var _dir = point_direction(x,y,other.x,other.y);
+		if(spr = spr_line_aoe)
+		{
+			var _dist_l = point_distance(other.x,other.y,x,y);
+			_dir = point_direction(x+lengthdir_x(_dist_l,image_angle),y+lengthdir_y(_dist_l,image_angle),other.x,other.y)
+		}
+		
+		var _xx = lengthdir_x(_dist,_dir),_yy = lengthdir_y(_dist,_dir);
+		var _vec_a = new other.Vector2(_xx,_yy);
+		_vec.Add(_vec_a);	
+	}
+	direction = point_direction(x,y,x+_vec.x,y+_vec.y);
+	//speed = move_speed/2;
+	
+	//return(0)
 	
 	//var _dir_to_center = point_direction(x,y,room_width/2,room_height/2);
 	
@@ -42,8 +119,6 @@ state_normal = function(){
 		last_quip = true;
 		make_quip(quips.defeat)
 	}
-	if(last_quip)
-		return(0);
 	
 	
 	// make a mistake
@@ -69,13 +144,13 @@ state_normal = function(){
 		bbox_right+sprite_width/2,bbox_bottom+sprite_height/2,obj_boss_attacks,true,true)
 	if(_danger)
 	{
-		direction = point_direction(_danger.x,_danger.y,x,y);
+		//direction = point_direction(_danger.x,_danger.y,x,y);
 		
-		if(_danger.spr = spr_line_aoe)
-		{
-			var _dist = point_distance(x,y,_danger.x,_danger.y);
-			direction = point_direction(_danger.x+lengthdir_x(_dist,_danger.image_angle),_danger.y+lengthdir_y(_dist,_danger.image_angle),x,y)
-		}
+		//if(_danger.spr = spr_line_aoe)
+		//{
+		//	var _dist = point_distance(x,y,_danger.x,_danger.y);
+		//	direction = point_direction(_danger.x+lengthdir_x(_dist,_danger.image_angle),_danger.y+lengthdir_y(_dist,_danger.image_angle),x,y)
+		//}
 
 		if(dodge_cd == 0)
 		{
@@ -108,29 +183,23 @@ state_normal = function(){
 		animation_end_state = get_state(states.attack);
 		animation_time = 2;
 		attack_cd = attack_max_cd;
+		sprite_index = spr_norman_attack
 		// change sprite
 		return(0);
 	}
 	
 	// move to preferable position
-	var _boss_hp_ratio = obj_boss.hp/obj_boss.max_hp;
-	var _dir = point_direction(obj_boss.x,obj_boss.y,room_width/2,room_height/2);
-	_dir += target_direction;
-	var _offset = 64;
-	var _xx = room_width/2, _yy = room_height/2;
-	var _length_offset = _offset*(_boss_hp_ratio*2-1);
-	_xx += lengthdir_x(_length_offset,_dir);
-	_yy += lengthdir_y(_length_offset,_dir);
-	var _dist = point_distance(x,y,_xx,_yy);
+	
+	var _dist = point_distance(x,y,_target_x,_target_y);
 	if(_dist > move_speed*2)
 	{
-		_dir = point_direction(x,y,_xx,_yy);
-		var _xx = x+lengthdir_x(move_speed,_dir);
-		var _yy = y+lengthdir_y(move_speed,_dir);
+		//_dir = point_direction(x,y,_xx,_yy);
+		var _xx = x+lengthdir_x(move_speed,direction);
+		var _yy = y+lengthdir_y(move_speed,direction);
 		var _danger = instance_place(_xx,_yy,obj_boss_attacks);
 		if(not _danger)
 		{
-			direction = _dir;
+			//direction = _dir;
 			state = get_state(states.move);
 			return(0);
 		}
@@ -146,7 +215,7 @@ state_attack = function(){
 	_xx = x + lengthdir_x(sprite_width/2,_dir);
 	_yy = y + lengthdir_y(sprite_height/2,_dir);
 	
-	var _attack = instance_create_layer(_xx,_yy,"Instances",obj_letter);
+	var _attack = instance_create_layer(_xx,_yy,"Attacks",obj_letter);
 	
 	_attack.damage = attack_damage;
 	_attack.speed = attack_move_speed;
@@ -183,6 +252,7 @@ state_animation = function(){
 }
 
 state_dodge = function(){
+	sprite_index = spr_norman_dodge
 	speed = dodge_speed
 	dodge_cd = dodge_max_cd;
 	animation_time = dodge_time
@@ -222,18 +292,18 @@ enum quips {
 quip_database = [
 // mistake
 ["Mom! I can't right now, I'm playing!", "*brr brr* *click* hello?, I can't talk right now ...",
-	"Kittens! Get off my keyboard!", "Noo! Lagggg!", "Need new mouse batteries", "Damn, I miss clicked",
+	"Kittens! Get off my keyboard!", "Noooo! Laggggg!", "Oh, need new mouse batteries", "Damn, I miss clicked",
 	"Well, there goes this run", "Uf, I hope I can come back from this"],
 
 // ability
 ["Letter delivery", "Christams cards", "Birthiday cards", "Death chain", "Hate mail", "Scam mail"],
 
 // hit
-["Aw, that hurt.", "How did that hit?", "These hitboxes are crap!", "I doged it, I doged it!",
+["Aw, that hurt.", "How did that hit?", "These hitboxes are crap!", "What?! I doged, I doged it!",
 	"No no no", "Ah, get away"],
 
 // dodge
-["That was close", "Not this time", "Can't touch this", "Easy", "Not even close", "Smoth",
+["That was close", "Not this time", "Can't touch this", "Easy", "Not even close", "Smooth move",
 	"I've got this"],
 
 // start
@@ -266,7 +336,7 @@ dodge_cd = 0;
 
 attack_damage = 10;
 attack_max_cd = room_speed; // 1s
-attack_cd = 0; // ready
+attack_cd = room_speed*4; // ready
 attack_move_speed = 6;
 
 ability_max_cd = room_speed*5; // 5s
@@ -300,6 +370,8 @@ decrease_cd = function(){
 		
 	if(initial_quip_cd > 0)
 		initial_quip_cd -= 1;
+		
+	hp = max(hp,0);
 }
 
 enum states {
@@ -321,6 +393,7 @@ get_state = function(_state_index){
 
 take_damage = function(_damage){
 	hp -= _damage;	
+	sprite_index = spr_norman_hit;
 }
 
 state = get_state(states.normal);

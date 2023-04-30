@@ -30,8 +30,8 @@
   "properties": [],
   "solid": false,
   "spriteId": {
-    "name": "spr_boss",
-    "path": "sprites/spr_boss/spr_boss.yy",
+    "name": "spr_boss_idle",
+    "path": "sprites/spr_boss_idle/spr_boss_idle.yy",
   },
   "spriteMaskId": null,
   "visible": true,

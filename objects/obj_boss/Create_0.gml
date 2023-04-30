@@ -26,6 +26,7 @@ melee_aoe = {
 
 max_hp = 200;
 hp = max_hp;
+last_hp = hp;
 hp_bars = 10;
 enraged = false; // 2nd stage
 
@@ -53,3 +54,7 @@ ability_cd = 0
 ability_warning_time = 2*room_speed; // 2s
 ability_list = [circle_aoe, line_aoe, melee_aoe]
 ability_current_index = 0;
+
+// debug
+//fatigue_increase = 1;
+//ability_max_cd = 10;

@@ -7,10 +7,70 @@ event_inherited();
 
 state_normal = function(){
 	
-	speed = 0;
 	avoid_damage = false;
+	sprite_index = spr_izzy_idle;
 	
-	//var _dir_to_center = point_direction(x,y,room_width/2,room_height/2);
+	speed = 0;
+	if(x < 0 or x > room_width or y < 0 or y > room_height)
+		speed = move_speed;
+		
+	if(last_quip)
+	{
+		direction = 180;
+		speed = move_speed;
+		if(x < 0)
+			room_goto_previous();
+			
+		return(0);
+	}
+	
+	// movement
+		
+	var _boss_hp_ratio = obj_boss.hp/obj_boss.max_hp;
+	var _dir = point_direction(obj_boss.x,obj_boss.y,room_width/2,room_height/2);
+	_dir += target_direction;
+	var _offset = 64;
+	var _target_x = obj_boss.x+lengthdir_x(obj_boss.sprite_width/2+sprite_width*4,_dir), 
+	var _target_y = obj_boss.y+lengthdir_y(obj_boss.sprite_height/2+sprite_height*4,_dir);
+	var _length_offset = _offset*(_boss_hp_ratio*2-1);
+	_target_x += lengthdir_x(_length_offset,_dir);
+	_target_y += lengthdir_y(_length_offset,_dir);
+	
+	// keep to the middle and avoid outside of the map
+	var _dist = point_distance(x,y,_target_x,_target_y)/point_distance(_target_x,_target_y,0,0);
+	_dist = clamp(_dist,0.15,1.8);
+	var _dir = point_direction(x,y,_target_x,_target_y);
+	var _xx = lengthdir_x(_dist,_dir),_yy = lengthdir_y(_dist,_dir);
+	var _vec = new Vector2(_xx,_yy);
+	
+	var _dist = 1-point_distance(x,y,obj_boss.x,obj_boss.y)/
+		point_distance(x,y,_target_x,_target_x);
+	
+	// move away if too close to the boss
+	//_dist = clamp(_dist,0.0,0.4);
+	//var _dir = point_direction(obj_boss.x,obj_boss.y,_target_x,_target_y);
+	//var _xx = lengthdir_x(_dist,_dir),_yy = lengthdir_y(_dist,_dir);
+	//var _vec_boss = new Vector2(_xx,_yy);
+	//_vec.Add(_vec_boss)
+	
+	with(obj_boss_attacks)
+	{
+		var _dist = place_meeting(x,y,obj_character)
+		if(_dist == 0)
+			_dist = 1.5-distance_to_object(other)/(other.sprite_width/2);
+		_dist = clamp(_dist,0.1,0.9);
+		var _dir = point_direction(x,y,other.x,other.y);
+		if(spr = spr_line_aoe)
+		{
+			var _dist_l = point_distance(other.x,other.y,x,y);
+			_dir = point_direction(x+lengthdir_x(_dist_l,image_angle),y+lengthdir_y(_dist_l,image_angle),other.x,other.y)
+		}
+		
+		var _xx = lengthdir_x(_dist,_dir),_yy = lengthdir_y(_dist,_dir);
+		var _vec_a = new other.Vector2(_xx,_yy);
+		_vec.Add(_vec_a);	
+	}
+	direction = point_direction(x,y,x+_vec.x,y+_vec.y);
 	
 	if(initial_quip_cd == 1)
 	{
@@ -74,13 +134,13 @@ state_normal = function(){
 		bbox_right+sprite_width/2,bbox_bottom+sprite_height/2,obj_boss_attacks,true,true)
 	if(_danger)
 	{
-		direction = point_direction(_danger.x,_danger.y,x,y);
+		//direction = point_direction(_danger.x,_danger.y,x,y);
 		
-		if(_danger.spr = spr_line_aoe)
-		{
-			var _dist = point_distance(x,y,_danger.x,_danger.y);
-			direction = point_direction(_danger.x+lengthdir_x(_dist,_danger.image_angle),_danger.y+lengthdir_y(_dist,_danger.image_angle),x,y)
-		}
+		//if(_danger.spr = spr_line_aoe)
+		//{
+		//	var _dist = point_distance(x,y,_danger.x,_danger.y);
+		//	direction = point_direction(_danger.x+lengthdir_x(_dist,_danger.image_angle),_danger.y+lengthdir_y(_dist,_danger.image_angle),x,y)
+		//}
 
 		if(dodge_cd == 0 and _danger.time <= 10)
 		{
@@ -118,25 +178,42 @@ state_normal = function(){
 	}
 	
 	// move to preferable position
-	var _boss_hp_ratio = obj_boss.hp/obj_boss.max_hp;
-	var _dir = point_direction(obj_boss.x,obj_boss.y,room_width/2,room_height/2);
-	_dir += target_direction;
-	var _offset = 64;
-	var _xx = obj_boss.x+lengthdir_x(obj_boss.sprite_width/2+sprite_width*4,_dir), 
-	_yy = obj_boss.y+lengthdir_y(obj_boss.sprite_height/2+sprite_height*4,_dir);
-	var _length_offset = _offset*(_boss_hp_ratio*2-1);
-	_xx += lengthdir_x(_length_offset,_dir);
-	_yy += lengthdir_y(_length_offset,_dir);
-	var _dist = point_distance(x,y,_xx,_yy);
+	//var _boss_hp_ratio = obj_boss.hp/obj_boss.max_hp;
+	//var _dir = point_direction(obj_boss.x,obj_boss.y,room_width/2,room_height/2);
+	//_dir += target_direction;
+	//var _offset = 64;
+	//var _xx = obj_boss.x+lengthdir_x(obj_boss.sprite_width/2+sprite_width*4,_dir), 
+	//_yy = obj_boss.y+lengthdir_y(obj_boss.sprite_height/2+sprite_height*4,_dir);
+	//var _length_offset = _offset*(_boss_hp_ratio*2-1);
+	//_xx += lengthdir_x(_length_offset,_dir);
+	//_yy += lengthdir_y(_length_offset,_dir);
+	//var _dist = point_distance(x,y,_xx,_yy);
+	//if(_dist > move_speed*2)
+	//{
+	//	_dir = point_direction(x,y,_xx,_yy);
+	//	var _xx = x+lengthdir_x(move_speed,_dir);
+	//	var _yy = y+lengthdir_y(move_speed,_dir);
+	//	var _danger = instance_place(_xx,_yy,obj_boss_attacks);
+	//	if(not _danger)
+	//	{
+	//		direction = _dir;
+	//		state = get_state(states.move);
+	//		return(0);
+	//	}
+	//}
+	//else
+	//	target_direction = (target_spread)/2+1-irandom(target_spread+1);
+		
+	var _dist = point_distance(x,y,_target_x,_target_y);
 	if(_dist > move_speed*2)
 	{
-		_dir = point_direction(x,y,_xx,_yy);
-		var _xx = x+lengthdir_x(move_speed,_dir);
-		var _yy = y+lengthdir_y(move_speed,_dir);
+		//_dir = point_direction(x,y,_xx,_yy);
+		var _xx = x+lengthdir_x(move_speed,direction);
+		var _yy = y+lengthdir_y(move_speed,direction);
 		var _danger = instance_place(_xx,_yy,obj_boss_attacks);
 		if(not _danger)
 		{
-			direction = _dir;
+			//direction = _dir;
 			state = get_state(states.move);
 			return(0);
 		}

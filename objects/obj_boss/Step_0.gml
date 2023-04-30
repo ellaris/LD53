@@ -1,9 +1,10 @@
 /// @description Wstaw opis w tym miejscu
 // W tym edytorze możesz zapisać swój kod
 
-var _left_click = mouse_check_button_pressed(mb_left);
+var _attack_pressed = mouse_check_button_pressed(mb_left) or keyboard_check_pressed(vk_space)
+	or keyboard_check_pressed(vk_enter);
 
-if(_left_click)
+if(_attack_pressed)
 {
 	if(ability_cd == 0 and not fatigue_stunned)
 	{
@@ -17,7 +18,7 @@ if(_left_click)
 		
 		var _ability = ability_list[ability_current_index];
 		var _xx = mouse_x, _yy = mouse_y;
-		var _attack = instance_create_layer(_xx,_yy,"Instances",obj_boss_attack_indication,_ability);
+		var _attack = instance_create_layer(_xx,_yy,"Attacks",obj_boss_attack_indication,_ability);
 		var _time = ability_warning_time;
 		if(enraged)
 		{
@@ -67,3 +68,8 @@ if(fatigue > 0)
 	fatigue -= fatigue_step_loss;
 else
 	fatigue_stunned = false;
+	
+if(last_hp < hp)
+	last_hp = hp;
+else
+	last_hp = lerp(last_hp,hp,0.025);

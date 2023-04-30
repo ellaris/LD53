@@ -7,14 +7,14 @@ if(_char and not hit)
 	hit = true;
 }
 
-// every second reset the hit timer
+// every second reset the hit timer for DOT AOE
 if(reset and duration % room_speed == 0)
 	hit = false;
 	
 switch(spr)
 {
 	case spr_circle_aoe:
-		image_angle += 15*dir;
+		image_angle += (duration/10)*dir;
 		image_xscale *= 1.0005;
 		image_yscale *= 1.0005;
 		

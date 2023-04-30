@@ -14,3 +14,7 @@ selection = 0;
 
 character_list = [obj_character_izzy,obj_character]
 character_names = ["Izzy","Norman"]
+
+animation_value = 270;
+animation_angle = 270;
+animation_angle_change = 55;
