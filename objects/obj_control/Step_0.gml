@@ -1,5 +1,9 @@
 /// @description Wstaw opis w tym miejscu
 // W tym edytorze możesz zapisać swój kod
+//if(not audio_is_playing(background_track))
+//background_track = audio_play_sound(choose(snd_background_track_1,snd_background_track_2
+//	,snd_background_track_3,snd_background_track_4),4,false);
+
 if(room != rm_character_select)
 	exit
 

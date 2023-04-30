@@ -18,3 +18,6 @@ character_names = ["Izzy","Norman"]
 animation_value = 270;
 animation_angle = 270;
 animation_angle_change = 55;
+
+background_track = noone;
+background_track = audio_play_sound(snd_background_track_2,4,true);
