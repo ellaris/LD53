@@ -53,6 +53,7 @@
     {"id":{"name":"obj_boss_attack","path":"objects/obj_boss_attack/obj_boss_attack.yy",},},
     {"id":{"name":"snd_melee_aoe_1","path":"sounds/snd_melee_aoe_1/snd_melee_aoe_1.yy",},},
     {"id":{"name":"snd_character_hit_2","path":"sounds/snd_character_hit_2/snd_character_hit_2.yy",},},
+    {"id":{"name":"obj_particle_system","path":"objects/obj_particle_system/obj_particle_system.yy",},},
     {"id":{"name":"snd_game_end_1","path":"sounds/snd_game_end_1/snd_game_end_1.yy",},},
     {"id":{"name":"spr_norman_dodge","path":"sprites/spr_norman_dodge/spr_norman_dodge.yy",},},
     {"id":{"name":"snd_background_track_2","path":"sounds/snd_background_track_2/snd_background_track_2.yy",},},

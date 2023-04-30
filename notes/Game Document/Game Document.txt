@@ -88,19 +88,19 @@ Particles
 small several blue move left
 	character hit
 	
-small several white
+small several white left
 	character letter attack
 	boss letter attack
 	letter destroy
 	select norman?
 	
-small several brown
+small several brown left
 	character box attack
 	boss box attack
 	box destroy
 	select izzy?
 	
-small several red
+small several red right
 	boss hit
 	
 smoke

@@ -34,6 +34,7 @@
     {"name":"obj_boss_attack","order":7,"path":"objects/obj_boss_attack/obj_boss_attack.yy",},
     {"name":"snd_melee_aoe_1","order":11,"path":"sounds/snd_melee_aoe_1/snd_melee_aoe_1.yy",},
     {"name":"snd_character_hit_2","order":6,"path":"sounds/snd_character_hit_2/snd_character_hit_2.yy",},
+    {"name":"obj_particle_system","order":10,"path":"objects/obj_particle_system/obj_particle_system.yy",},
     {"name":"snd_game_end_1","order":16,"path":"sounds/snd_game_end_1/snd_game_end_1.yy",},
     {"name":"spr_norman_dodge","order":11,"path":"sprites/spr_norman_dodge/spr_norman_dodge.yy",},
     {"name":"snd_background_track_2","order":18,"path":"sounds/snd_background_track_2/snd_background_track_2.yy",},

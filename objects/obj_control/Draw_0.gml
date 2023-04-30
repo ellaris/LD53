@@ -1,13 +1,9 @@
 /// @description Wstaw opis w tym miejscu
 // W tym edytorze możesz zapisać swój kod
 
-
-with(obj_character)
-	draw_line(room_width/2,room_height/2,x,y)	
-
 if(room != rm_character_select)
 	exit
-	
+draw_set_color(c_white)	
 	
 var _default_scale = 4;
 for(var i = 0; i < array_length(character_list); i++)

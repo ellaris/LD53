@@ -37,6 +37,10 @@ if(_attack_pressed)
 		
 		switch(ability_current_index)
 		{
+			case 0:
+				
+			break;
+			
 			case 1:
 				//_attack.image_xscale = 4;
 				//_attack.image_yscale = 4;

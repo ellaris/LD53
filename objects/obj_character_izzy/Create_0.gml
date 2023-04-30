@@ -181,6 +181,10 @@ state_normal = function(){
 		animation_time = 2;
 		attack_cd = attack_max_cd;
 		sprite_index = spr_izzy_attack;
+		with(obj_particle_system)
+		{
+			spawn_particles(other.x,other.y,part_brown,6,32);
+		}
 		// change sprite
 		return(0);
 	}
@@ -337,6 +341,11 @@ take_damage = function(_damage){
 		
 		var _sound = choose(snd_character_hit_1,snd_character_hit_2);
 		audio_play_sound(_sound,3,false);
+		
+		with(obj_particle_system)
+		{
+			spawn_particles(other.x,other.y,part_blue,8,other.sprite_width/2);
+		}
 	}
 	else
 	{
