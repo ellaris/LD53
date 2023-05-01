@@ -9,7 +9,7 @@ if(fatigue_stunned)
 else if( not (last_hp > hp+5) and (ability_cd < ability_max_cd -15))
 	sprite_index = spr_boss_idle
 
-if(_attack_pressed)
+if(_attack_pressed and hp_bars > 0)
 {
 	if(ability_cd == 0 and not fatigue_stunned)
 	{

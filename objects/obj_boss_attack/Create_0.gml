@@ -36,7 +36,8 @@ switch(spr)
 		var _sound = choose(snd_melee_aoe_1);
 		with(obj_particle_system)
 		{
-			spawn_particles(other.x,other.y,part_smoke,6,other.sprite_width/2);
+			spawn_particles(other.x,other.y,part_white,30,other.sprite_width/2);
+			spawn_particles(other.x,other.y,part_brown,20,other.sprite_width/2);
 		}
 	break;
 

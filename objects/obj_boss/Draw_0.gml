@@ -12,6 +12,8 @@ var _bar_height = 32;
 var _xx = _offset;
 var _yy = _offset;
 var _hp_ratio = hp/max_hp;
+if(hp_bars < 1)
+	_hp_ratio = 0;
 
 draw_set_color(c_black);
 draw_rectangle(_xx,_yy,_xx+_bar_width,_yy+_bar_height,false);
